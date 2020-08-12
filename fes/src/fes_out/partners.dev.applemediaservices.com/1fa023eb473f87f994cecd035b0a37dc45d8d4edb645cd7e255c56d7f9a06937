@@ -1,0 +1,25 @@
+http://partners.dev.applemediaservices.com/node
+
+> GET /node HTTP/1.1
+> Host: partners.dev.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 301 Moved Permanently
+< server: CloudFront
+< date: Wed, 12 Aug 2020 03:38:22 GMT
+< content-type: text/html
+< content-length: 183
+< connection: keep-alive
+< location: https://partners.dev.applemediaservices.com/node
+< x-cache: Redirect from cloudfront
+< via: 1.1 4da69145f7e1fe6a8bdcb04dc7af89e8.cloudfront.net (CloudFront)
+< x-amz-cf-pop: BOS50-C2
+< x-amz-cf-id: 8ED-sTufgzdinOPeujd9j4OD8xWL4E0LYyEqdIyPK6-iydSJ-R6BIw==
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>CloudFront</center>
+</body>
+</html>

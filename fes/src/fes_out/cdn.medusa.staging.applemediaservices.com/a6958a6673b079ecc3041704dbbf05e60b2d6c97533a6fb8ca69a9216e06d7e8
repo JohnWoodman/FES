@@ -1,0 +1,25 @@
+http://cdn.medusa.staging.applemediaservices.com/.svn
+
+> GET /.svn HTTP/1.1
+> Host: cdn.medusa.staging.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 301 Moved Permanently
+< content-type: text/html
+< content-length: 150
+< connection: keep-alive
+< server: awselb/2.0
+< date: Wed, 12 Aug 2020 03:37:41 GMT
+< location: https://cdn.medusa.staging.applemediaservices.com:443/.svn
+< x-cache: Hit from cloudfront
+< via: 1.1 64c00d6fb16fd979dc95fb22540b2058.cloudfront.net (CloudFront)
+< x-amz-cf-pop: BOS50-C2
+< x-amz-cf-id: 9LpDReuv0pl2Yq9oPouwWonJRoGQK_iCCenEyWirCbP-wD4f9AhPZQ==
+< age: 40
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+</body>
+</html>

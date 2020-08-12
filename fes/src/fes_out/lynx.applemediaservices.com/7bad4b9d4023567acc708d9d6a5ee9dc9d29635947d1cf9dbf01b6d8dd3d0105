@@ -1,0 +1,24 @@
+https://lynx.applemediaservices.com/node.xml
+
+> GET /node.xml HTTP/1.1
+> Host: lynx.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 401 Unauthorized
+< date: Wed, 12 Aug 2020 03:38:23 GMT
+< content-type: text/html; charset=utf-8
+< transfer-encoding: chunked
+< connection: keep-alive
+< x-xss-protection: 1; mode=block
+< x-content-type-options: nosniff
+< x-download-options: noopen
+< x-permitted-cross-domain-policies: none
+< referrer-policy: strict-origin-when-cross-origin
+< x-frame-options: ALLOWALL
+< www-authenticate: Basic realm="Application"
+< cache-control: no-cache
+< x-request-id: 523a5683-2a81-463a-9ed2-4443c2fc98b2
+< x-runtime: 0.004558
+< vary: Accept-Encoding
+
+HTTP Basic: Access denied.

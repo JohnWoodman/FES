@@ -1,0 +1,68 @@
+https://tools.applemediaservices.com/application.js
+
+> GET /application.js HTTP/1.1
+> Host: tools.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 404 Not Found
+< date: Wed, 12 Aug 2020 03:38:22 GMT
+< content-type: text/html; charset=utf-8
+< transfer-encoding: chunked
+< connection: keep-alive
+< x-xss-protection: 1; mode=block
+< x-content-type-options: nosniff
+< x-download-options: noopen
+< x-permitted-cross-domain-policies: none
+< referrer-policy: strict-origin-when-cross-origin
+< x-frame-options: ALLOWALL
+< x-request-id: 3240de5f-de9d-447d-b8c4-8f7e1612d994
+< x-runtime: 0.270428
+< vary: Accept-Encoding
+
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+<title>Marketing Tools and Resources - Apple Services</title>
+<link href='/apple-logo-black.ico' rel='shortcut icon' type='image/x-icon'>
+<link href='https://tools.applemediaservices.com/404' rel='canonical'>
+<meta charset='utf-8'>
+<link href='https://tools.applemediaservices.com/404' hreflang='en-US' rel='alternate'>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='' name='description' property='og:description'>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="4vxh7GGUELYwkdxlqjWchXsh7rVdzFPs2wIN7NM0Ys7LO64oVCy6zZW8MMr6LEIuCZHPZF6hrvvEydSeoSgHlA==" />
+
+<link rel="stylesheet" media="all" href="https://cdn.medusa.applemediaservices.com/assets/sasskit-64090e2945b07d896a683f49b1355e2db4080cd5a8b6af7b4410766ebad5354b.css" />
+<link rel="stylesheet" media="screen" href="https://cdn.medusa.applemediaservices.com/assets/page-b54356b38d46898efa4fdf64f18b598d3c50745dacde5457e0e93c770109c782.css" />
+<link href='https://cdn.medusa.applemediaservices.com/styles/5d1a72f53cba530001ac3023/1562014453.css' rel='stylesheet'>
+<style>   [data-id='xuun2ex2'].hero{color:#000}
+ </style>
+
+<script src='https://medusa.applemediaservices.com/props/en-US/5ee690b4e51161000178a45e/1592168803.js?error_message=Not+Found&amp;status_code=404'></script>
+<script>
+  var RLOCKUP = {};
+</script>
+<script>
+  var TLOCKUP = {"books":"Books","audio-books":"Audiobooks","authors":"Authors","songs":"Songs","albums":"Albums","playlists":"Playlists","artists":"Artists","music-videos":"Music Videos","curators":"Curators","station":"Station","podcast":"Podcasts","podcastEpisode":"Podcast Episodes"}
+</script>
+<script>
+  var PPARAMS = {"status_code":"404","locale":"en-US","error_message":"Not Found"};
+</script>
+<script src="https://cdn.medusa.applemediaservices.com/packs/page-6f666cca045e4d14f1c6.js"></script>
+<script src="https://markhor-cdn.organicfruitapps.com/v4/4.2.0/markhor.min.js"></script>
+<script>
+  const markhorParameters = {"host":"tools.applemediaservices.com","id":203,"tool":"toolbox","lineOfBusiness":null,"userType":"tool","itscg":"30200","itsct":null,"collector":"collector.applemediaservices.com"}
+</script>
+<script src="https://cdn.medusa.applemediaservices.com/packs/markhor-db72a9d25fb5c7cadfa3.js"></script>
+
+</head>
+<body lang='en-US'>
+<div data-vue>
+<div class="header site-header" data-id="u5a415hz"> <div class="site-header-wrapper container"> <div class="header-section header-section-left"> <div class="header-link header-link-large"> <a class="icon icon-before icon-apple" href="/" target="_self" data-track-label="site_header_home">Market with Us</a> </div> </div> <div class="header-section header-section-right" :class="{ open: p('siteHeaderOpen') }"> <div class="header-section-search" :class="{ closed: !p('siteSearchOpen') }"> <search class="icon icon-before icon-search header-search" data-id="95af4227" param="siteSearch" search-on="input" placeholder="Search the apps, books, music, podcasts and TV toolboxes."></search> <toggle class="icon icon-close toggle-search" param="siteSearchOpen" data-id="ded050c7" data-track-action="search_close" data-track-category="toggle" data-track-label="site_header_search"> </toggle> </div> <div class="nav site-nav" :class="{'search-results-open': p('siteSearch.hasResults'), closed: p('siteSearchOpen') }"> <!-- <div class="header-link"> <link-tag data-id="takbgjvy" href="/app-store" target="_self" :prepend-locale="true" data-track-label="site-header-apps-toolbox"> Apps </link-tag> </div> --> <div class="header-link"> <a href="/apple-books" target="_self" data-track-label="site_header_books_toolbox">Books</a> </div> <div class="header-link"> <a href="/apple-music" target="_self" data-track-label="site_header_music_toolbox">Music</a> </div> <!-- <div class="header-link"> <link-tag data-id="zgplhda2" href="/apple-news" target="_self" :prepend-locale="true" data-track-label="site-header-news-toolbox"> News </link-tag> </div> --> <div class="header-link"> <a href="/apple-podcasts" target="_self" data-track-label="site_header_podcasts_toolbox">Podcasts</a> </div> <div class="header-link"> <a href="/apple-tv-app" target="_self" data-track-label="site_header_tv_toolbox">TV</a> </div> </div> <toggle class="icon icon-search toggle-search" :class="{ closed: p('siteSearchOpen') }" param="siteSearchOpen" data-id="f832785f" data-track-action="search_open" data-track-category="toggle" data-track-label="site_header_search"> </toggle> </div> <toggle class="toggle-nav" data-id="0ec465bb" param="siteHeaderOpen"> <div class="bread bread-top"> <span class="bread-crust bread-crust-top"></span> </div> <div class="bread bread-bottom"> <span class="bread-crust bread-crust-bottom"></span> </div> </toggle> <toggle class="site-search-results-blur" :class="{ open: p('siteSearchOpen') }" data-id="905f2a2b" param="siteSearchOpen" data-track-action="search_close" data-track-category="toggle" data-track-label="site_header_search"></toggle> <site-search-results param="siteSearch" :class="{ open: p('siteSearchOpen'), closed: !p('siteHeaderOpen'), 'has-results': p('siteSearch.hasResults') }" data-id="fe7aafc6"></site-search-results> </div> </div><div class="wrapper" data-id="gw0xwpcx"> <div class="wrapper-children"> <div class="main" data-id="dn7m79aw"> <div class="container"> <div class="hero" data-id="xuun2ex2"> <h1 class="hero-title">Apple Marketing Tools. </h1> <h4 class="hero-sub">The page you requested could not be found.</h4> </div>
+</div> </div>
+<footer id="footer" class="footer" role="contentinfo" aria-labelledby="footer-label" data-id="4bm4t833"> <div class="footer-content"> <section class="footer-section footer-section-left"> <h2 class="footer-title icon icon-before icon-apple">Market With Us</h2> <p class="footer-legal">Copyright 2020 Apple Inc. All rights reserved.</p> </section> <section class="footer-section footer-section-right" vocab="http://schema.org/"> <div class="footer-mini-legal-links" data-id="c3c9584d"> </div> <link-tag :class="`flag flag-${country} flag-large`" :href="`/language?rp=${window.location.pathname}`" target="_self" data-track-label="languages" :prepend-locale="true"></link-tag> </section> </div> <hr class="footer-divider"> <div class="footer-content"> <section class="footer-section footer-section-bottom"> <p class="footer-disclaimer">Embeddable widgets are provided by Apple as an accommodation only. Apple assumes no responsibility for your use of any widget, and makes no representation regarding their accuracy or performance. Nothing shall be construed as permission or a grant by Apple in relation to the use of any artist, track or album name, and you agree that any use by you, or result from your use, shall be solely your responsibility. Apple reserves the right to de-activate any widget at its sole discretion.</p> </section> </div> </footer>
+</div> </div>
+
+</div>
+</body>
+</html>

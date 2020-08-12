@@ -27,6 +27,8 @@ fn write_results(output_data: &Vec<String>, output_body: String, output_dir: &st
     let start_index = unique_url.find('/').unwrap() + 2;
     let temp_dir = &unique_url[start_index..];
     let end_index = temp_dir.find('/').unwrap();
+    let endpoint = format!("{}", &temp_dir[end_index..]);
+    let host = format!("{}", &temp_dir[..end_index]);
     let main_dir = output_dir;
     let final_dir = format!("{}/{}", main_dir, &temp_dir[..end_index]);
 
@@ -47,10 +49,12 @@ fn write_results(output_data: &Vec<String>, output_body: String, output_dir: &st
 
     for (pos, i) in output_data.iter().enumerate() {
         if pos == 1 {
-            file.write_all(b"\n> GET /test.html HTTP/1.1\n")
-                .expect("didn't work");
-            file.write_all(b"> Host: test.\n").expect("nope");
-            file.write_all(b"> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)\n\n").expect("nope");
+            file.write_all(b"\n> GET ").expect("didn't work");
+            file.write_all(endpoint.as_bytes()).expect("nope");
+            file.write_all(b" HTTP/1.1\n").expect("nope");
+            file.write_all(b"> Host: ").expect("nope");
+            file.write_all(host.as_bytes()).expect("nope");
+            file.write_all(b"\n> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)\n\n").expect("nope");
             let status = StatusCode::from_bytes(i.as_bytes()).unwrap();
             let full_status = format!("< {} {}\n", i, status.canonical_reason().unwrap());
             file.write_all(full_status.as_bytes())

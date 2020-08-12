@@ -1,0 +1,14 @@
+https://collector.applemediaservices.com/node_modules
+
+> GET /node_modules HTTP/1.1
+> Host: collector.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 404 Not Found
+< date: Wed, 12 Aug 2020 03:38:23 GMT
+< content-type: text/plain; charset=UTF-8
+< content-length: 13
+< connection: keep-alive
+< server: akka-http/10.1.10
+
+404 not found

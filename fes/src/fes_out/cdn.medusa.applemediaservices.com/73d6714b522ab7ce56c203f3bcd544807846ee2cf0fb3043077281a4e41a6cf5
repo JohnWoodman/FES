@@ -1,0 +1,25 @@
+http://cdn.medusa.applemediaservices.com/webpack.config.js
+
+> GET /webpack.config.js HTTP/1.1
+> Host: cdn.medusa.applemediaservices.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 301 Moved Permanently
+< content-type: text/html
+< content-length: 150
+< connection: keep-alive
+< server: awselb/2.0
+< date: Wed, 12 Aug 2020 03:37:45 GMT
+< location: https://cdn.medusa.applemediaservices.com:443/webpack.config.js
+< x-cache: Hit from cloudfront
+< via: 1.1 477938f42feaed1197fbf7716b91a85e.cloudfront.net (CloudFront)
+< x-amz-cf-pop: BOS50-C2
+< x-amz-cf-id: Q0BnNECat-R1by1dvMPkgGmYcBBC2kZzQZfGT3I4UaHd8fNV52HFrw==
+< age: 39
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+</body>
+</html>
