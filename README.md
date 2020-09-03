@@ -1,6 +1,14 @@
 # FES - Fast Endpoint Scanner
 A web application endpoint scanner written in Rust, designed to put less load on the domains it scans (inspired by tomnomnom's meg).
-
+## Installation
+### Debian Based
+[You can download the latest binary or .deb file from the releases page](https://github.com/JohnWoodman/FES/releases)
+### Building From Source
+1. Make sure you have cargo and rust installed
+2. Git clone the repo
+3. cd into the git repo and run `carg build --release`
+4. The binary is located at `target/release/fes`
+5. You can then symlink to the binary or move it to a directory in your PATH
 ## Usage
 ```
 fes 1.0
