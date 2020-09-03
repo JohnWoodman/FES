@@ -124,6 +124,7 @@ dependencies = [
  "reqwest",
  "rust-crypto",
  "tokio",
+ "url",
 ]
 
 [[package]]
