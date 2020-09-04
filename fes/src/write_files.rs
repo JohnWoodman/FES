@@ -10,7 +10,12 @@ pub mod write_file {
     use std::path::Path;
     use std::str;
 
-    pub fn write_results(output_data: &Vec<String>, output_body: String, output_dir: &str) {
+    pub fn write_results(
+        output_data: &Vec<String>,
+        output_body: String,
+        output_dir: &str,
+        hash_write: bool,
+    ) {
         let unique_url = output_data[0].as_str();
         let start_index = unique_url.find('/').unwrap() + 2;
         let temp_dir = &unique_url[start_index..];
@@ -57,8 +62,30 @@ pub mod write_file {
             }
         }
 
+        let mut hasher = Sha256::new();
+        hasher.input_str(output_body.as_str());
+        let body_hash = hasher.result_str();
+        //hash_list.push(body_hash.as_str());
         file.write_all(b"\n").expect("Unable to write new line");
-        file.write_all(output_body.as_bytes())
+        file.write_all(b"Hashed Body:\n")
+            .expect("Unable to write to file");
+        file.write_all(body_hash.as_bytes())
             .expect("Unable to write new line");
+        file.write_all(b"\n").expect("Unable to write new line");
+
+        if !hash_write {
+            file.write_all(b"\n").expect("Unable to write new line");
+            file.write_all(output_body.as_bytes())
+                .expect("Unable to write new line");
+        }
+    }
+
+    pub fn sort_hashes() {
+        /*
+        for hash in hash_list.iter() {
+            println!("hash: {}", hash);
+        }
+        */
+        println!("test");
     }
 }

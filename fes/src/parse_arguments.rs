@@ -9,9 +9,9 @@ pub mod parse_argument {
             .arg(
                 Arg::with_name("paths_file")
                     .short("p")
-                    .long("path")
+                    .long("paths")
                     .takes_value(true)
-                    .required(true)
+                    .required_unless("dir")
                     .help("File with list of endpoints"),
             )
             .arg(
@@ -19,7 +19,7 @@ pub mod parse_argument {
                     .short("u")
                     .long("urls")
                     .takes_value(true)
-                    .required(true)
+                    .required_unless("dir")
                     .help("File with list of urls"),
             )
             .arg(
@@ -27,14 +27,37 @@ pub mod parse_argument {
                     .short("c")
                     .long("concurrency")
                     .takes_value(true)
-                    .help("Set the number of parallel requests (default: 20)"),
+                    .help("Set the number of parallel requests [default: 20]"),
             )
             .arg(
                 Arg::with_name("output_dir")
                     .short("o")
                     .long("output")
                     .takes_value(true)
-                    .help("Specify the directory for output (default: fes_out)"),
+                    .help("Specify the directory for output [default: fes_out]"),
+            )
+            .arg(
+                Arg::with_name("hash_write")
+                    .short("s")
+                    .long("hash-output")
+                    .takes_value(false)
+                    .help("Store only the hash of the response body (takes up a lot less space)"),
+            )
+            .arg(
+                Arg::with_name("dir")
+                    .short("a")
+                    .long("anomalies")
+                    .takes_value(true)
+                    .help(
+                        "Specify already existing FES output directory to grab anomalous responses",
+                    ),
+            )
+            .arg(
+                Arg::with_name("limit_val")
+                    .short("t")
+                    .long("anomaly-threshold")
+                    .takes_value(true)
+                    .help("Specify the minimum threshold of duplicate responses for anomalies"),
             )
             .get_matches();
 

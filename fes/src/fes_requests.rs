@@ -13,6 +13,7 @@ pub mod fes_request {
         paths: Vec<&str>,
         parallel_requests: usize,
         output_dir: &str,
+        hash_write: bool,
     ) {
         let mut url_test = Vec::new();
         for path in paths {
@@ -69,6 +70,7 @@ pub mod fes_request {
                                     &vec,
                                     body_test.to_string(),
                                     output_dir,
+                                    hash_write,
                                 );
                             }
                             Err(e) => println!("{:?}", e),
