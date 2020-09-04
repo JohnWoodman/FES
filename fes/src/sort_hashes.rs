@@ -2,11 +2,11 @@ pub mod sort_hash {
 
     use std::collections::HashMap;
     use std::convert::TryInto;
+    use std::fs;
     use std::fs::File;
     use std::io::BufRead;
     use std::io::BufReader;
     use std::str;
-    use std::{env, fs};
     use walkdir::WalkDir;
 
     pub fn read_hashes(output_dir: &str, a_thresh: i32) {
@@ -62,7 +62,7 @@ pub mod sort_hash {
 
         for hash in hash_only.iter() {
             let count = hash_only.iter().filter(|&n| n == hash).count();
-            if (count <= a_thresh.try_into().unwrap() || a_thresh == 0) {
+            if count <= a_thresh.try_into().unwrap() || a_thresh == 0 {
                 hash_frequencies.insert(hash, count);
             }
         }

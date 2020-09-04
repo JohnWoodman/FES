@@ -79,13 +79,4 @@ pub mod write_file {
                 .expect("Unable to write new line");
         }
     }
-
-    pub fn sort_hashes() {
-        /*
-        for hash in hash_list.iter() {
-            println!("hash: {}", hash);
-        }
-        */
-        println!("test");
-    }
 }
