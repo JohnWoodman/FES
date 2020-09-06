@@ -1,5 +1,6 @@
 pub mod sort_hash {
 
+    use map_vec::set;
     use std::collections::HashMap;
     use std::convert::TryInto;
     use std::fs;
@@ -9,7 +10,8 @@ pub mod sort_hash {
     use std::str;
     use walkdir::WalkDir;
 
-    pub fn read_hashes(output_dir: &str, a_thresh: i32, keywords: Vec[&str]) {
+    pub fn read_hashes(output_dir: &str, a_thresh: i32) {
+        let line_break = "=============================================";
         let mut hash_list = Vec::new();
         let mut hash_only = Vec::new();
         for entry in WalkDir::new(output_dir)
@@ -66,6 +68,54 @@ pub mod sort_hash {
                 hash_list.push(file_data);
             }
         }
+        //count_vec.sort_by(|a, b| a.1.cmp(b.1));
+        hash_list.sort_by(|a, b| a[3].cmp(&b[3]));
+        let mut hashes = HashMap::new();
+        let mut frequency = Vec::new();
+        for hash in hash_list.iter() {
+            match hashes.get(&hash[3]) {
+                Some(&val) => {
+                    frequency[val] += 1;
+                }
+                _ => {
+                    hashes.insert(&hash[3], frequency.len());
+                    frequency.push(1);
+                }
+            }
+            //println!("{} {} {} {}",hash[0],hash[1],hash[2],hash[3]);
+        }
+        let mut all_hashes = Vec::new();
+        let mut k = 0;
+        for hash in hash_list.iter() {
+            match hashes.get(&hash[3]) {
+                Some(&val) => {
+                    let f = frequency[val];
+                    all_hashes.push(vec![f, k]);
+                    k += 1;
+                }
+                _ => k += 1,
+            }
+        }
+        all_hashes.sort();
+        let mut previous_hash = "";
+        println!("{}\n\nAnomaly Output (Sorted)\n", line_break);
+        for hash in all_hashes {
+            if hash[0] <= a_thresh.try_into().unwrap() || a_thresh == 0 {
+                let j = hash[1];
+                if hash_list[j][3] != previous_hash {
+                    println!(
+                        "{}\n{} ({})\n{}",
+                        line_break, hash_list[j][3], hash[0], line_break
+                    );
+                    previous_hash = &hash_list[j][3];
+                }
+                let data = &hash_list[j];
+                println!("[{}] {} ({})", data[2], data[1], data[0]);
+                //println!("{} {} {}", hash_list[j][0],hash_list[j][1], hash_list[j][2]);
+            }
+        }
+
+        /*
         let mut hash_frequencies = HashMap::new();
 
         for hash in hash_only.iter() {
@@ -94,5 +144,6 @@ pub mod sort_hash {
             }
             println!("");
         }
+        */
     }
 }
