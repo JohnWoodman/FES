@@ -1,7 +1,7 @@
 pub mod sort_hash {
 
-    use map_vec::set;
     use std::collections::HashMap;
+    use map_vec::set;
     use std::convert::TryInto;
     use std::fs;
     use std::fs::File;
@@ -22,7 +22,6 @@ pub mod sort_hash {
             let f_name = entry.path();
             let mut file_data = Vec::new();
             let metadata = fs::metadata(&f_name).unwrap();
-            let mut keyword_data = Vec::new();
             if metadata.is_file() {
                 file_data.push(f_name.to_str().unwrap().to_string());
 
@@ -34,13 +33,6 @@ pub mod sort_hash {
                 let mut newline = 0;
                 let mut found_status = false;
                 for l in v.iter() {
-                    if !keywords.is_empty() {
-                        for key in keywords {
-                            if l.contains(key) {
-                                keyword_data.push(f_name);
-                            }
-                        }
-                    }
                     if first {
                         file_data.push(l.to_owned());
                         first = false;
@@ -72,42 +64,39 @@ pub mod sort_hash {
         hash_list.sort_by(|a, b| a[3].cmp(&b[3]));
         let mut hashes = HashMap::new();
         let mut frequency = Vec::new();
-        for hash in hash_list.iter() {
-            match hashes.get(&hash[3]) {
-                Some(&val) => {
-                    frequency[val] += 1;
-                }
+        for hash in hash_list.iter(){
+            match hashes.get(&hash[3]){
+                Some(&val) =>{
+                    frequency[val]+=1;
+                },
                 _ => {
-                    hashes.insert(&hash[3], frequency.len());
+                    hashes.insert(&hash[3],frequency.len());
                     frequency.push(1);
-                }
+                },
             }
             //println!("{} {} {} {}",hash[0],hash[1],hash[2],hash[3]);
         }
         let mut all_hashes = Vec::new();
         let mut k = 0;
-        for hash in hash_list.iter() {
-            match hashes.get(&hash[3]) {
-                Some(&val) => {
+        for hash in hash_list.iter(){
+            match hashes.get(&hash[3]){
+                Some(&val) =>{
                     let f = frequency[val];
-                    all_hashes.push(vec![f, k]);
-                    k += 1;
-                }
-                _ => k += 1,
+                    all_hashes.push(vec![f,k]);
+                    k+=1;
+                },
+                _ => k+=1,
             }
         }
         all_hashes.sort();
         let mut previous_hash = "";
-        println!("{}\n\nAnomaly Output (Sorted)\n", line_break);
-        for hash in all_hashes {
-            if hash[0] <= a_thresh.try_into().unwrap() || a_thresh == 0 {
+        println!("{}\n\nAnomaly Output (Sorted)\n",line_break);
+        for hash in all_hashes{
+            if hash[0]<=a_thresh.try_into().unwrap() || a_thresh == 0{
                 let j = hash[1];
-                if hash_list[j][3] != previous_hash {
-                    println!(
-                        "{}\n{} ({})\n{}",
-                        line_break, hash_list[j][3], hash[0], line_break
-                    );
-                    previous_hash = &hash_list[j][3];
+                if hash_list[j][3] != previous_hash{
+                    println!("{}\n{} ({})\n{}",line_break,hash_list[j][3],hash[0],line_break);
+                    previous_hash=&hash_list[j][3];
                 }
                 let data = &hash_list[j];
                 println!("[{}] {} ({})", data[2], data[1], data[0]);
@@ -115,7 +104,7 @@ pub mod sort_hash {
             }
         }
 
-        /*
+    /*
         let mut hash_frequencies = HashMap::new();
 
         for hash in hash_only.iter() {
