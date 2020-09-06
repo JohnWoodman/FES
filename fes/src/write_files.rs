@@ -15,7 +15,20 @@ pub mod write_file {
         output_body: String,
         output_dir: &str,
         hash_write: bool,
+        allowed_status: &Vec<&str>,
+        disallowed_status: &Vec<&str>,
     ) {
+        if !allowed_status.is_empty() {
+            if !allowed_status.iter().any(|&i| i == output_data[1]) {
+                return;
+            }
+        }
+        if !disallowed_status.is_empty() {
+            if disallowed_status.iter().any(|&i| i == output_data[1]) {
+                return;
+            }
+        }
+
         let unique_url = output_data[0].as_str();
         let start_index = unique_url.find('/').unwrap() + 2;
         let temp_dir = &unique_url[start_index..];

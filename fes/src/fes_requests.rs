@@ -14,6 +14,8 @@ pub mod fes_request {
         parallel_requests: usize,
         output_dir: &str,
         hash_write: bool,
+        allowed_status: Vec<&str>,
+        disallowed_status: Vec<&str>,
     ) {
         let mut url_test = Vec::new();
         for path in paths {
@@ -71,6 +73,8 @@ pub mod fes_request {
                                     body_test.to_string(),
                                     output_dir,
                                     hash_write,
+                                    &allowed_status,
+                                    &disallowed_status,
                                 );
                             }
                             Err(e) => println!("{:?}", e),

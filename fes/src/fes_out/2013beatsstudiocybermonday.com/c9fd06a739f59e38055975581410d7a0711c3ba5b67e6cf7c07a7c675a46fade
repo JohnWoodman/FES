@@ -1,0 +1,17 @@
+http://2013beatsstudiocybermonday.com/robots.txt
+
+> GET /robots.txt HTTP/1.1
+> Host: 2013beatsstudiocybermonday.com
+> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)
+
+< 400 Bad Request
+< server: red 3.8
+< date: Sat,  5.Sep 2020 23:28:29 GMT
+< referer: 
+< location: 
+< connection: close
+< content-type: text/html
+< content-length: 0
+
+Hashed Body:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855

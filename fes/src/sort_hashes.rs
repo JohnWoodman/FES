@@ -9,7 +9,7 @@ pub mod sort_hash {
     use std::str;
     use walkdir::WalkDir;
 
-    pub fn read_hashes(output_dir: &str, a_thresh: i32) {
+    pub fn read_hashes(output_dir: &str, a_thresh: i32, keywords: Vec[&str]) {
         let mut hash_list = Vec::new();
         let mut hash_only = Vec::new();
         for entry in WalkDir::new(output_dir)
@@ -20,6 +20,7 @@ pub mod sort_hash {
             let f_name = entry.path();
             let mut file_data = Vec::new();
             let metadata = fs::metadata(&f_name).unwrap();
+            let mut keyword_data = Vec::new();
             if metadata.is_file() {
                 file_data.push(f_name.to_str().unwrap().to_string());
 
@@ -31,6 +32,13 @@ pub mod sort_hash {
                 let mut newline = 0;
                 let mut found_status = false;
                 for l in v.iter() {
+                    if !keywords.is_empty() {
+                        for key in keywords {
+                            if l.contains(key) {
+                                keyword_data.push(f_name);
+                            }
+                        }
+                    }
                     if first {
                         file_data.push(l.to_owned());
                         first = false;

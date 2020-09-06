@@ -59,6 +59,24 @@ pub mod parse_argument {
                     .takes_value(true)
                     .help("Specify the minimum threshold of duplicate responses for anomalies"),
             )
+            .arg(
+                Arg::with_name("allowed_statuses")
+                    .short("f")
+                    .long("status-code")
+                    .require_delimiter(true)
+                    .require_equals(true)
+                    .takes_value(true)
+                    .help("Filter and store only the specified status codes (comma separated)"),
+            )
+            .arg(
+                Arg::with_name("disallowed_statuses")
+                    .short("d")
+                    .long("disallowed-status-code")
+                    .require_delimiter(true)
+                    .require_equals(true)
+                    .takes_value(true)
+                    .help("Filter and store only the specified status codes (comma separated)"),
+            )
             .get_matches();
 
         matches

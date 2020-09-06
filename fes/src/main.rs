@@ -9,6 +9,8 @@ pub use crate::fes_requests::fes_request;
 pub use crate::parse_arguments::parse_argument;
 pub use crate::read_files::read_file;
 pub use crate::sort_hashes::sort_hash;
+use std::fs;
+use std::path::Path;
 
 fn main() {
     let matches = parse_argument::get_arguments();
@@ -23,13 +25,38 @@ fn main() {
     let parallel_requests: usize = matches.value_of("num").unwrap_or("20").parse().unwrap();
 
     if matches.is_present("paths_file") && matches.is_present("urls_file") {
+        if Path::new(output_dir).exists() {
+            fs::remove_dir_all(output_dir).unwrap();
+        }
         let paths_file = matches.value_of("paths_file").unwrap();
         let urls_file = matches.value_of("urls_file").unwrap();
+        let mut allowed_status = vec![];
+        let mut disallowed_status = vec![];
+        if matches.is_present("allowed_statuses") {
+            allowed_status = matches
+                .values_of("allowed_statuses")
+                .unwrap()
+                .collect::<Vec<_>>();
+        };
+        if matches.is_present("disallowed_statuses") {
+            disallowed_status = matches
+                .values_of("disallowed_statuses")
+                .unwrap()
+                .collect::<Vec<_>>();
+        };
         let url_string: Vec<String> = read_file::read_lines(urls_file).unwrap();
         let urls: Vec<&str> = url_string.iter().map(AsRef::as_ref).collect();
         let paths_string: Vec<String> = read_file::read_lines(paths_file).unwrap();
         let paths: Vec<&str> = paths_string.iter().map(AsRef::as_ref).collect();
-        fes_request::get_request(urls, paths, parallel_requests, output_dir, hash_write);
+        fes_request::get_request(
+            urls,
+            paths,
+            parallel_requests,
+            output_dir,
+            hash_write,
+            allowed_status,
+            disallowed_status,
+        );
         sort_hash::read_hashes(output_dir, a_thresh);
     } else if matches.is_present("dir") {
         sort_hash::read_hashes(anomaly_dir, a_thresh);
