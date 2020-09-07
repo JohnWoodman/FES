@@ -23,6 +23,7 @@ A web application endpoint scanner written in Rust, designed to put less load on
                                 \:::\____\               \::::/    /       
                                  \::/    /                \::/    /        
                                   \/____/                  \/____/                                                                                 
+
 ```
 ## Installation
 ### Debian Based
