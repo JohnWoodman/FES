@@ -16,15 +16,33 @@ John Woodman <john.woodman11@gmail.com>
 Fast Endpoint Scanner Built In Rust
 
 USAGE:
-    fes [OPTIONS] --path <paths_file> --urls <urls_file>
+    fes [FLAGS] [OPTIONS] --paths <paths_file> --urls <urls_file>
 
 FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
+    -a, --anomalies      Output sorted anomalous responses based on hashed response body (use with -t, default threshold
+                         is 3) (requires -g flag)
+    -s, --hash-output    Store only the hash of the response body (takes up a lot less space)
+    -h, --help           Prints help information
+    -V, --version        Prints version information
 
 OPTIONS:
-    -c, --concurrency <num>      Set the number of parallel requests (default: 20)
-    -o, --output <output_dir>    Specify the directory for output (default: fes_out)
-    -p, --path <paths_file>      File with list of endpoints
-    -u, --urls <urls_file>       File with list of urls
+    -f, --status-code=<allowed_statuses>
+            Filter and store only the specified status codes (comma separated)
+
+    -g, --parse <dir>
+            Specify this flag for parsing an existing fes output directory (this flag is required in order to use the
+            following parsing flags: --anomalies (-a), --keyword (-k), --anomaly-threshold (-t)
+    -d, --disallowed-status-code=<disallowed_statuses>
+            Filter and don't store the specified status codes (comma separated)
+
+    -k, --keyword=<keywords>
+            Specify keywords to search for in responses to output (comma separated) (requires -g flag)
+
+    -t, --anomaly-threshold <limit_val>
+            Specify the minimum threshold of duplicate responses for anomalies (requires -g flag)
+
+    -c, --concurrency <num>                               Set the number of parallel requests [default: 20]
+    -o, --output <output_dir>                             Specify the directory for output [default: fes_out]
+    -p, --paths <paths_file>                              File with list of endpoints
+    -u, --urls <urls_file>                                File with list of urls
 ```
