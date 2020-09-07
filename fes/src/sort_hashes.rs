@@ -1,7 +1,6 @@
 pub mod sort_hash {
 
     use std::collections::HashMap;
-    use map_vec::set;
     use std::convert::TryInto;
     use std::fs;
     use std::fs::File;
@@ -10,10 +9,11 @@ pub mod sort_hash {
     use std::str;
     use walkdir::WalkDir;
 
-    pub fn read_hashes(output_dir: &str, a_thresh: i32) {
+    pub fn read_hashes(output_dir: &str, a_thresh: i32, keywords: Vec<&str>, anomaly: bool) {
         let line_break = "=============================================";
         let mut hash_list = Vec::new();
         let mut hash_only = Vec::new();
+        let mut keyword_data = HashMap::new();
         for entry in WalkDir::new(output_dir)
             .follow_links(true)
             .into_iter()
@@ -32,79 +32,105 @@ pub mod sort_hash {
                 let mut first = true;
                 let mut newline = 0;
                 let mut found_status = false;
+                let mut found_body = false;
+                let mut wrote_status = false;
                 for l in v.iter() {
                     if first {
                         file_data.push(l.to_owned());
                         first = false;
                     }
+
+                    if !keywords.is_empty() && found_body {
+                        for key in &keywords {
+                            if l.to_lowercase().contains(&key.to_lowercase()) {
+                                keyword_data.insert(f_name.to_str().unwrap().to_string(), key);
+                            }
+                        }
+                    }
+
                     if found {
                         file_data.push(l.to_owned());
                         hash_only.push(l.to_owned());
-                        break;
+                        found_body = true;
                     }
                     if newline == 2 {
                         found_status = true;
                     }
                     if found_status {
                         file_data.push(l.to_owned()[2..5].to_string());
+                        wrote_status = true;
                         found_status = false;
                         newline = 0;
                     }
                     if l.trim() == "Hashed Body:" {
                         found = true;
                     }
-                    if l.trim().is_empty() {
+                    if l.trim().is_empty() && !wrote_status {
                         newline = newline + 1;
                     }
                 }
                 hash_list.push(file_data);
             }
         }
-        //count_vec.sort_by(|a, b| a.1.cmp(b.1));
-        hash_list.sort_by(|a, b| a[3].cmp(&b[3]));
-        let mut hashes = HashMap::new();
-        let mut frequency = Vec::new();
-        for hash in hash_list.iter(){
-            match hashes.get(&hash[3]){
-                Some(&val) =>{
-                    frequency[val]+=1;
-                },
-                _ => {
-                    hashes.insert(&hash[3],frequency.len());
-                    frequency.push(1);
-                },
-            }
-            //println!("{} {} {} {}",hash[0],hash[1],hash[2],hash[3]);
-        }
-        let mut all_hashes = Vec::new();
-        let mut k = 0;
-        for hash in hash_list.iter(){
-            match hashes.get(&hash[3]){
-                Some(&val) =>{
-                    let f = frequency[val];
-                    all_hashes.push(vec![f,k]);
-                    k+=1;
-                },
-                _ => k+=1,
-            }
-        }
-        all_hashes.sort();
-        let mut previous_hash = "";
-        println!("{}\n\nAnomaly Output (Sorted)\n",line_break);
-        for hash in all_hashes{
-            if hash[0]<=a_thresh.try_into().unwrap() || a_thresh == 0{
-                let j = hash[1];
-                if hash_list[j][3] != previous_hash{
-                    println!("{}\n{} ({})\n{}",line_break,hash_list[j][3],hash[0],line_break);
-                    previous_hash=&hash_list[j][3];
+        for key in &keywords {
+            println!("Keyword: {}", key);
+            println!("{}", line_break);
+            for (file, word) in &keyword_data {
+                if *word == key {
+                    println!("{}", file);
                 }
-                let data = &hash_list[j];
-                println!("[{}] {} ({})", data[2], data[1], data[0]);
-                //println!("{} {} {}", hash_list[j][0],hash_list[j][1], hash_list[j][2]);
+            }
+        }
+        //count_vec.sort_by(|a, b| a.1.cmp(b.1));
+        if anomaly {
+            hash_list.sort_by(|a, b| a[3].cmp(&b[3]));
+            let mut hashes = HashMap::new();
+            let mut frequency = Vec::new();
+            for hash in hash_list.iter() {
+                match hashes.get(&hash[3]) {
+                    Some(&val) => {
+                        frequency[val] += 1;
+                    }
+                    _ => {
+                        hashes.insert(&hash[3], frequency.len());
+                        frequency.push(1);
+                    }
+                }
+                //println!("{} {} {} {}",hash[0],hash[1],hash[2],hash[3]);
+            }
+            let mut all_hashes = Vec::new();
+            let mut k = 0;
+            for hash in hash_list.iter() {
+                match hashes.get(&hash[3]) {
+                    Some(&val) => {
+                        let f = frequency[val];
+                        all_hashes.push(vec![f, k]);
+                        k += 1;
+                    }
+                    _ => k += 1,
+                }
+            }
+            all_hashes.sort();
+            let mut previous_hash = "";
+            println!("{}\n\nAnomaly Output (Sorted)\n", line_break);
+            for hash in all_hashes {
+                if hash[0] <= a_thresh.try_into().unwrap() || a_thresh == 0 {
+                    let j = hash[1];
+                    if hash_list[j][3] != previous_hash {
+                        println!(
+                            "{}\n{} ({})\n{}",
+                            line_break, hash_list[j][3], hash[0], line_break
+                        );
+                        previous_hash = &hash_list[j][3];
+                    }
+                    let data = &hash_list[j];
+                    println!("[{}] {} ({})", data[2], data[1], data[0]);
+                    //println!("{} {} {}", hash_list[j][0],hash_list[j][1], hash_list[j][2]);
+                }
             }
         }
 
-    /*
+        /*
         let mut hash_frequencies = HashMap::new();
 
         for hash in hash_only.iter() {

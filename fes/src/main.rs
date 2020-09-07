@@ -16,13 +16,18 @@ fn main() {
     let matches = parse_argument::get_arguments();
     let hash_write: bool = matches.is_present("hash_write");
     let output_dir = matches.value_of("output_dir").unwrap_or("fes_out");
-    let anomaly_dir = matches.value_of("dir").unwrap_or("fes_out");
+    let local_dir = matches.value_of("dir").unwrap_or("fes_out");
+    let anomaly: bool = matches.is_present("anomaly");
     let a_thresh = matches
         .value_of("limit_val")
-        .unwrap_or("0")
+        .unwrap_or("3")
         .parse::<i32>()
         .expect("Error: Integer not specified for anomaly threshold");
     let parallel_requests: usize = matches.value_of("num").unwrap_or("20").parse().unwrap();
+    let mut keywords = vec![];
+    if matches.is_present("keywords") {
+        keywords = matches.values_of("keywords").unwrap().collect::<Vec<_>>();
+    }
 
     if matches.is_present("paths_file") && matches.is_present("urls_file") {
         if Path::new(output_dir).exists() {
@@ -57,9 +62,11 @@ fn main() {
             allowed_status,
             disallowed_status,
         );
-        sort_hash::read_hashes(output_dir, a_thresh);
+        if matches.is_present("dir") {
+            sort_hash::read_hashes(output_dir, a_thresh, keywords, anomaly);
+        }
     } else if matches.is_present("dir") {
-        sort_hash::read_hashes(anomaly_dir, a_thresh);
+        sort_hash::read_hashes(local_dir, a_thresh, keywords, anomaly);
     }
 }
 /* ----------TODO----------
