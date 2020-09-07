@@ -22,8 +22,7 @@ A web application endpoint scanner written in Rust, designed to put less load on
                                \:::\    \               \::::::/    /      
                                 \:::\____\               \::::/    /       
                                  \::/    /                \::/    /        
-                                  \/____/                  \/____/                                                                                 
-
+                                  \/____/                  \/____/   
 ```
 <img src="https://img.shields.io/badge/Built%20with-Rust-Purple">
 
