@@ -1,5 +1,8 @@
 use std::str;
 
+#[macro_use]
+extern crate colour;
+
 mod fes_requests;
 mod parse_arguments;
 mod read_files;
@@ -34,6 +37,12 @@ fn main() {
         if Path::new(output_dir).exists() {
             fs::remove_dir_all(output_dir).unwrap();
         }
+        let follow_redirects: bool = matches.is_present("follow_redirects");
+        let timeout = matches
+            .value_of("timeout")
+            .unwrap()
+            .parse::<u64>()
+            .expect("Error: Integer not specified for timeout");
         let paths_file = matches.value_of("paths_file").unwrap();
         let urls_file = matches.value_of("urls_file").unwrap();
         let mut allowed_status = vec![];
@@ -62,6 +71,8 @@ fn main() {
             hash_write,
             allowed_status,
             disallowed_status,
+            timeout,
+            follow_redirects,
         );
         if matches.is_present("dir") {
             sort_hash::read_hashes(output_dir, a_thresh, keywords, anomaly);

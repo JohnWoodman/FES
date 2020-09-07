@@ -98,99 +98,110 @@ pub mod parse_argument {
                     .takes_value(true)
                     .help("Specify this flag for parsing an existing fes output directory (this flag is required in order to use the following parsing flags: --anomalies (-a), --keyword (-k), --anomaly-threshold (-t)"),
             )
+            .arg(
+                Arg::with_name("timeout")
+                    .short("x")
+                    .long("timeout")
+                    .takes_value(true)
+                    .default_value("3")
+                    .help("Specify the timeout (in seconds) for the requests"),
+            )
+            .arg(
+                Arg::with_name("follow_redirects")
+                    .short("r")
+                    .long("follow-redirect")
+                    .takes_value(false)
+                    .help("Follow redirects (up to 10)"),
+            )
             .get_matches();
 
         matches
     }
 
     pub fn print_logo() {
-        println!(
+        red_ln!(
             "{}",
             r"          _____                    _____                    _____          "
         );
-        println!(
+        red_ln!(
             "{}",
             r"         /\    \                  /\    \                  /\    \         "
         );
-        println!(
+        red_ln!(
             "{}",
             r"        /::\    \                /::\    \                /::\    \        "
         );
-        println!(
+        red_ln!(
             "{}",
             r"       /::::\    \              /::::\    \              /::::\    \       "
         );
-        println!(
+        red_ln!(
             "{}",
             r"      /::::::\    \            /::::::\    \            /::::::\    \      "
         );
-        println!(
+        red_ln!(
             "{}",
             r"     /:::/\:::\    \          /:::/\:::\    \          /:::/\:::\    \     "
         );
-        println!(
+        red_ln!(
             "{}",
             r"    /:::/__\:::\    \        /:::/__\:::\    \        /:::/__\:::\    \    "
         );
-        println!(
+        red_ln!(
             "{}",
             r"   /::::\   \:::\    \      /::::\   \:::\    \       \:::\   \:::\    \   "
         );
-        println!(
+        red_ln!(
             "{}",
             r"  /::::::\   \:::\    \    /::::::\   \:::\    \    ___\:::\   \:::\    \  "
         );
-        println!(
+        red_ln!(
             "{}",
             r" /:::/\:::\   \:::\    \  /:::/\:::\   \:::\    \  /\   \:::\   \:::\    \ "
         );
-        println!(
+        red_ln!(
             "{}",
             r"/:::/  \:::\   \:::\____\/:::/__\:::\   \:::\____\/::\   \:::\   \:::\____\"
         );
-        println!(
+        red_ln!(
             "{}",
             r"\::/    \:::\   \::/    /\:::\   \:::\   \::/    /\:::\   \:::\   \::/    /"
         );
-        println!(
+        red_ln!(
             "{}",
             r" \/____/ \:::\   \/____/  \:::\   \:::\   \/____/  \:::\   \:::\   \/____/ "
         );
-        println!(
+        red_ln!(
             "{}",
             r"          \:::\    \       \:::\   \:::\    \       \:::\   \:::\    \     "
         );
-        println!(
+        red_ln!(
             "{}",
             r"           \:::\____\       \:::\   \:::\____\       \:::\   \:::\____\    "
         );
-        println!(
+        red_ln!(
             "{}",
             r"            \::/    /        \:::\   \::/    /        \:::\  /:::/    /    "
         );
-        println!(
+        red_ln!(
             "{}",
             r"             \/____/          \:::\   \/____/          \:::\/:::/    /     "
         );
-        println!(
+        red_ln!(
             "{}",
             r"                               \:::\    \               \::::::/    /      "
         );
-        println!(
+        red_ln!(
             "{}",
             r"                                \:::\____\               \::::/    /       "
         );
-        println!(
+        red_ln!(
             "{}",
             r"                                 \::/    /                \::/    /        "
         );
-        println!(
+        red_ln!(
             "{}",
             r"                                  \/____/                  \/____/         "
-        );
-        println!(
-            "{}",
-            r"                                                                           "
         );
     }
 }

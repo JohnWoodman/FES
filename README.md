@@ -1,5 +1,6 @@
 # FES - Fast Endpoint Scanner
 A web application endpoint scanner written in Rust, designed to put less load on the domains it scans with parsing features to help grab the important stuff (inspired by tomnomnom's meg).
+<span style="color:red">
 ```
           _____                    _____                    _____          
          /\    \                  /\    \                  /\    \         
@@ -24,6 +25,7 @@ A web application endpoint scanner written in Rust, designed to put less load on
                                   \/____/                  \/____/   
                                   
 ```
+</span>
 <img src="https://img.shields.io/badge/Built%20with-Rust-Purple">
 
 ## Installation

@@ -16,6 +16,8 @@ pub mod fes_request {
         hash_write: bool,
         allowed_status: Vec<&str>,
         disallowed_status: Vec<&str>,
+        timeout: u64,
+        follow_redirects: bool,
     ) {
         let mut url_test = Vec::new();
         for path in paths {
@@ -29,7 +31,10 @@ pub mod fes_request {
 
         let bodies = stream::iter(url_test)
             .map(|url| {
-                let custom_redirect = reqwest::redirect::Policy::none();
+                let mut custom_redirect = reqwest::redirect::Policy::none();
+                if follow_redirects {
+                    custom_redirect = reqwest::redirect::Policy::limited(10);
+                }
                 let mut headers = header::HeaderMap::new();
                 headers.insert(
                     header::USER_AGENT,
@@ -45,7 +50,11 @@ pub mod fes_request {
                     .unwrap();
 
                 tokio::spawn(async move {
-                    let resp = client.get(url).timeout(Duration::from_secs(3)).send().await;
+                    let resp = client
+                        .get(url)
+                        .timeout(Duration::from_secs(timeout))
+                        .send()
+                        .await;
                     resp
                 })
             })
