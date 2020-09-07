@@ -13,6 +13,7 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
+    parse_argument::print_logo();
     let matches = parse_argument::get_arguments();
     let hash_write: bool = matches.is_present("hash_write");
     let output_dir = matches.value_of("output_dir").unwrap_or("fes_out");
