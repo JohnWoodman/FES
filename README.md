@@ -25,6 +25,8 @@ A web application endpoint scanner written in Rust, designed to put less load on
                                   \/____/                  \/____/                                                                                 
 
 ```
+<img src="https://img.shields.io/badge/Built%20with-Rust-Purple">
+
 ## Installation
 ### Debian Based
 [You can download the latest binary or .deb file from the releases page](https://github.com/JohnWoodman/FES/releases)
