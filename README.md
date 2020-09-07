@@ -45,11 +45,12 @@ USAGE:
     fes [FLAGS] [OPTIONS] --paths <paths_file> --urls <urls_file>
 
 FLAGS:
-    -a, --anomalies      Output sorted anomalous responses based on hashed response body (use with -t, default threshold
-                         is 3) (requires -g flag)
-    -s, --hash-output    Store only the hash of the response body (takes up a lot less space)
-    -h, --help           Prints help information
-    -V, --version        Prints version information
+    -a, --anomalies          Output sorted anomalous responses based on hashed response body (use with -t, default
+                             threshold is 3) (requires -g flag)
+    -r, --follow-redirect    Follow redirects (up to 10)
+    -s, --hash-output        Store only the hash of the response body (takes up a lot less space)
+    -h, --help               Prints help information
+    -V, --version            Prints version information
 
 OPTIONS:
     -f, --status-code=<allowed_statuses>
@@ -70,5 +71,15 @@ OPTIONS:
     -c, --concurrency <num>                               Set the number of parallel requests [default: 20]
     -o, --output <output_dir>                             Specify the directory for output [default: fes_out]
     -p, --paths <paths_file>                              File with list of endpoints
+    -x, --timeout <timeout>                               Specify the timeout (in seconds) for the requests [default: 3]
     -u, --urls <urls_file>                                File with list of urls
 ```
+## Examples
+The below example scans the given urls.txt for the given paths.txt, only saving responses with status code 200 (-f=200), following redirects (-r), sending 100 requests at a time (-c 100), and storing the output in the directory `test_output/` (-o test_output):
+```
+fes --paths paths.txt --urls urls.txt -f=200 -r -c 100 -o test_output
+```
+The below example is parsing an already existing FES output directory (-g test_output/), printing unique responses (-a), and printing responses that contain the keyword "password" (-k=password):
+```
+fes -g test_output/ -a -k=password
+``` 
