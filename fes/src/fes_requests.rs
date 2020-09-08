@@ -44,6 +44,7 @@ pub mod fes_request {
                 );
 
                 let client = reqwest::Client::builder()
+                    .danger_accept_invalid_certs(true)
                     .redirect(custom_redirect)
                     .default_headers(headers)
                     .build()
