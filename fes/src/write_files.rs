@@ -78,7 +78,6 @@ pub mod write_file {
         let mut hasher = Sha256::new();
         hasher.input_str(output_body.as_str());
         let body_hash = hasher.result_str();
-        //hash_list.push(body_hash.as_str());
         file.write_all(b"\n").expect("Unable to write new line");
         file.write_all(b"Hashed Body:\n")
             .expect("Unable to write to file");

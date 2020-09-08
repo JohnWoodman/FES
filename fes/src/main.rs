@@ -81,11 +81,3 @@ fn main() {
         sort_hash::read_hashes(local_dir, a_thresh, keywords, anomaly);
     }
 }
-/* ----------TODO----------
- * Figure out how to parse HTML for keywords, also save response to file (like meg)
- * add flag that allows you to only store the headers of anomaly requests (saves space). Make sure
- * you do it in a way that doesn't require resending the request, because it could be different.
- * For the lightweight version (less diskspace), hash the response and store that instead of the
- * full response. Then check for anomalies based off threshold given (or just sort all hashes,
- * putting the unique ones first.
- */

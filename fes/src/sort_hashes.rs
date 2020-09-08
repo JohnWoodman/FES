@@ -81,7 +81,6 @@ pub mod sort_hash {
                 }
             }
         }
-        //count_vec.sort_by(|a, b| a.1.cmp(b.1));
         if anomaly {
             hash_list.sort_by(|a, b| a[3].cmp(&b[3]));
             let mut hashes = HashMap::new();
@@ -96,7 +95,6 @@ pub mod sort_hash {
                         frequency.push(1);
                     }
                 }
-                //println!("{} {} {} {}",hash[0],hash[1],hash[2],hash[3]);
             }
             let mut all_hashes = Vec::new();
             let mut k = 0;
@@ -125,40 +123,8 @@ pub mod sort_hash {
                     }
                     let data = &hash_list[j];
                     println!("[{}] {} ({})", data[2], data[1], data[0]);
-                    //println!("{} {} {}", hash_list[j][0],hash_list[j][1], hash_list[j][2]);
                 }
             }
         }
-
-        /*
-        let mut hash_frequencies = HashMap::new();
-
-        for hash in hash_only.iter() {
-            let count = hash_only.iter().filter(|&n| n == hash).count();
-            if count <= a_thresh.try_into().unwrap() || a_thresh == 0 {
-                hash_frequencies.insert(hash, count);
-            }
-        }
-
-        let mut count_vec: Vec<_> = hash_frequencies.iter().collect();
-        count_vec.sort_by(|a, b| a.1.cmp(b.1));
-
-        println!("");
-        println!("=============================================");
-        println!("");
-        println!("Anomaly Output (Sorted)");
-        println!("");
-        for fin_hash in count_vec.iter() {
-            println!("=============================================");
-            println!("{} ({})", fin_hash.0, fin_hash.1);
-            println!("=============================================");
-            for data in hash_list.iter() {
-                if **fin_hash.0 == data[3] {
-                    println!("[{}] {} ({})", data[2], data[1], data[0]);
-                }
-            }
-            println!("");
-        }
-        */
     }
 }
