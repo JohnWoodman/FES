@@ -62,7 +62,7 @@ pub mod write_file {
                 file.write_all(host.as_bytes()).expect("nope");
                 file.write_all(b"\n> User-Agent: Mozilla/5.0 (compatible; fes/0.1; +https://github.com/JohnWoodman/fes)\n\n").expect("nope");
                 let status = StatusCode::from_bytes(i.as_bytes()).unwrap();
-                let full_status = format!("< {} {}\n", i, status.canonical_reason().unwrap());
+                let full_status = format!("< {} {}\n", i, status.canonical_reason().unwrap_or(""));
                 file.write_all(full_status.as_bytes())
                     .expect("Coudlnt' write");
             } else if pos == 0 {
