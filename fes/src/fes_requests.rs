@@ -72,7 +72,8 @@ pub mod fes_request {
                         vec.push(url);
                         vec.push(status);
                         for (key, value) in headers.iter() {
-                            let pair = format!("{}: {}", key.as_str(), value.to_str().unwrap());
+                            let pair =
+                                format!("{}: {}", key.as_str(), value.to_str().unwrap_or(""));
                             vec.push(pair);
                         }
                         match b.text().await {
