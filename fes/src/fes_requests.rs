@@ -10,12 +10,12 @@ pub mod fes_request {
     #[tokio::main]
     pub async fn get_request(
         urls: Vec<&str>,
-        paths: Vec<&str>,
+        paths: &Vec<&str>,
         parallel_requests: usize,
         output_dir: &str,
         hash_write: bool,
-        allowed_status: Vec<&str>,
-        disallowed_status: Vec<&str>,
+        allowed_status: &Vec<&str>,
+        disallowed_status: &Vec<&str>,
         timeout: u64,
         follow_redirects: bool,
     ) {

@@ -15,6 +15,10 @@ pub use crate::sort_hashes::sort_hash;
 use std::fs;
 use std::path::Path;
 
+use std::fs::File;
+use std::io::BufRead;
+use std::io::BufReader;
+
 fn main() {
     parse_argument::print_logo();
     let matches = parse_argument::get_arguments();
@@ -59,21 +63,47 @@ fn main() {
                 .unwrap()
                 .collect::<Vec<_>>();
         };
-        let url_string: Vec<String> = read_file::read_lines(urls_file).unwrap();
-        let urls: Vec<&str> = url_string.iter().map(AsRef::as_ref).collect();
         let paths_string: Vec<String> = read_file::read_lines(paths_file).unwrap();
         let paths: Vec<&str> = paths_string.iter().map(AsRef::as_ref).collect();
-        fes_request::get_request(
-            urls,
-            paths,
-            parallel_requests,
-            output_dir,
-            hash_write,
-            allowed_status,
-            disallowed_status,
-            timeout,
-            follow_redirects,
-        );
+        let file = File::open(urls_file).expect("Unable to open file.");
+        let reader = BufReader::new(file);
+        let mut url_string: Vec<String> = Vec::new();
+        let mut buf_counter = 0;
+        for line in reader.lines() {
+            if buf_counter < 1000 {
+                url_string.push(line.unwrap_or("".to_string()));
+                buf_counter += 1;
+            } else {
+                buf_counter = 0;
+                let urls: Vec<&str> = url_string.iter().map(AsRef::as_ref).collect();
+                fes_request::get_request(
+                    urls,
+                    &paths,
+                    parallel_requests,
+                    output_dir,
+                    hash_write,
+                    &allowed_status,
+                    &disallowed_status,
+                    timeout,
+                    follow_redirects,
+                );
+                url_string = Vec::new();
+            }
+        }
+        if !url_string.is_empty() {
+            let urls: Vec<&str> = url_string.iter().map(AsRef::as_ref).collect();
+            fes_request::get_request(
+                urls,
+                &paths,
+                parallel_requests,
+                output_dir,
+                hash_write,
+                &allowed_status,
+                &disallowed_status,
+                timeout,
+                follow_redirects,
+            );
+        }
         if matches.is_present("dir") {
             sort_hash::read_hashes(output_dir, a_thresh, keywords, anomaly);
         }
