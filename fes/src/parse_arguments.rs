@@ -3,7 +3,7 @@ pub mod parse_argument {
 
     pub fn get_arguments() -> clap::ArgMatches<'static> {
         let matches = App::new("fes")
-            .version("1.0")
+            .version("1.1")
             .author("John Woodman <john.woodman11@gmail.com>")
             .about("Fast Endpoint Scanner Built In Rust")
             .arg(
