@@ -14,6 +14,7 @@ pub use crate::read_files::read_file;
 pub use crate::sort_hashes::sort_hash;
 use std::fs;
 use std::path::Path;
+use linecount::count_lines;
 
 use std::fs::File;
 use std::io::BufRead;
@@ -42,6 +43,7 @@ fn main() {
             fs::remove_dir_all(output_dir).unwrap();
         }
         let follow_redirects: bool = matches.is_present("follow_redirects");
+        let verbose: bool = matches.is_present("verbose");
         let timeout = matches
             .value_of("timeout")
             .unwrap()
@@ -63,6 +65,9 @@ fn main() {
                 .unwrap()
                 .collect::<Vec<_>>();
         };
+        let path_lines: usize = count_lines(File::open(paths_file).unwrap()).unwrap();
+        let url_lines: usize = count_lines(File::open(urls_file).unwrap()).unwrap();
+        let max_total: u64 = path_lines as u64 * url_lines as u64;
         let paths_string: Vec<String> = read_file::read_lines(paths_file).unwrap();
         let paths: Vec<&str> = paths_string.iter().map(AsRef::as_ref).collect();
         let file = File::open(urls_file).expect("Unable to open file.");
@@ -86,6 +91,8 @@ fn main() {
                     &disallowed_status,
                     timeout,
                     follow_redirects,
+                    max_total,
+                    verbose,
                 );
                 url_string = Vec::new();
             }
@@ -102,6 +109,8 @@ fn main() {
                 &disallowed_status,
                 timeout,
                 follow_redirects,
+                max_total,
+                verbose,
             );
         }
         if matches.is_present("dir") {

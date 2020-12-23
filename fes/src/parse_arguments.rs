@@ -113,6 +113,13 @@ pub mod parse_argument {
                     .takes_value(false)
                     .help("Follow redirects (up to 10)"),
             )
+            .arg(
+                Arg::with_name("verbose")
+                    .short("v")
+                    .long("verbose")
+                    .takes_value(false)
+                    .help("Verbose output"),
+            )
             .get_matches();
 
         matches

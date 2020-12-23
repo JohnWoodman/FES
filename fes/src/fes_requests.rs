@@ -1,6 +1,8 @@
 pub mod fes_request {
 
     use crate::write_files;
+    use indicatif::ProgressBar;
+    use indicatif::ProgressStyle;
     use futures::{stream, StreamExt};
     use reqwest::header;
     use std::str;
@@ -18,7 +20,13 @@ pub mod fes_request {
         disallowed_status: &Vec<&str>,
         timeout: u64,
         follow_redirects: bool,
+        max_total: u64,
+        verbose: bool,
     ) {
+        let bar = ProgressBar::new(max_total);
+        bar.set_style(ProgressStyle::default_bar()
+            .template("{percent}% [{bar:50.blue/red}] {msg}")
+            .progress_chars("=> "));
         let mut url_test = Vec::new();
         for path in paths {
             for url in &urls {
@@ -69,6 +77,8 @@ pub mod fes_request {
                         let url = b.url().as_str().to_string();
                         let headers = &b.headers();
                         let status = b.status().as_str().to_string();
+                        let msg = format!("{} [{}]", &url, &status);
+                        ProgressBar::set_message(&bar, &msg);
                         vec.push(url);
                         vec.push(status);
                         for (key, value) in headers.iter() {
@@ -88,13 +98,23 @@ pub mod fes_request {
                                     &disallowed_status,
                                 );
                             }
-                            Err(e) => println!("{:?}", e),
+                            Err(e) => {
+                                if verbose {
+                                    ProgressBar::println(&bar, e.to_string());
+                                }
+                            }
                         }
                     }
-                    Ok(Err(e)) => println!("Got an error: {}", e),
+                    Ok(Err(e)) => {
+                        if verbose {
+                            ProgressBar::println(&bar, e.to_string());
+                        }
+                    }
                     Err(e) => eprintln!("Got a tokio::JoinError: {}", e),
                 }
+                bar.inc(1);
             })
             .await;
+            bar.finish_with_message("Finished!");
     }
 }
