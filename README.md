@@ -37,7 +37,7 @@ A web application endpoint scanner written in Rust, designed to put less load on
 5. You can then symlink to the binary or move it to a directory in your PATH
 ## Usage
 ```                                                                                
-fes 1.0
+fes 1.1
 John Woodman <john.woodman11@gmail.com>
 Fast Endpoint Scanner Built In Rust
 
@@ -51,6 +51,7 @@ FLAGS:
     -s, --hash-output        Store only the hash of the response body (takes up a lot less space)
     -h, --help               Prints help information
     -V, --version            Prints version information
+    -v, --verbose            Verbose output
 
 OPTIONS:
     -f, --status-code=<allowed_statuses>
